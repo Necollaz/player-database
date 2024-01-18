@@ -168,18 +168,7 @@ class PlayerDatabase
     {
         Console.Write("Введите номер игрока: ");
 
-        if(int.TryParse(Console.ReadLine(), out int index))
-        {
-            for (int i = 0; i < _players.Count; i++)
-            {
-                if (_players[i].Id == index)
-                {
-                    player = _players[i];
-                    return true;
-                }
-            }
-        }
-        else
+        if (int.TryParse(Console.ReadLine(), out int index) == false)
         {
             player = null;
 
@@ -187,6 +176,20 @@ class PlayerDatabase
 
             return false;
         }
+        
+        for (int i = 0; i < _players.Count; i++)
+        {
+            if (_players[i].Id == index)
+            {
+                player = _players[i];
+                return true;
+            }
+        }
+
+        player = null;
+
+        Console.WriteLine("Игрок с указанным номером не найден!");
+        return false;
     }
 }
 
