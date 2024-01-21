@@ -2,12 +2,12 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        PlayerDatabase database = new PlayerDatabase();
+        Database database = new Database();
         database.Work();
     }
 }
 
-class PlayerDatabase
+class Database
 {
     private List<Player> _players = new List<Player>();
 
@@ -19,6 +19,7 @@ class PlayerDatabase
         const string CommandUnbanPlayer = "4";
         const string CommandShowInfo = "5";
         const string CommandExit = "6";
+
         string userInput;
 
         bool isWorking = true;
@@ -72,7 +73,7 @@ class PlayerDatabase
         }
     }
 
-    public void AddPlayer()
+    private void AddPlayer()
     {
         Console.WriteLine("Введите имя игрока: ");
         string name = Console.ReadLine();
@@ -88,13 +89,17 @@ class PlayerDatabase
 
         Console.WriteLine("Игрок забанет? Введите ДА или НЕТ");
         string userInput = Console.ReadLine().ToUpper().ToLower();
+
+        string positiveAnswer = "да";
+        string negativeAnswer = "нет";
+
         bool isBanned;
 
-        if (userInput == "да")
+        if (userInput == positiveAnswer)
         {
             isBanned = true;
         }
-        else if (userInput == "нет")
+        else if (userInput == negativeAnswer)
         {
             isBanned = false;
         }
@@ -109,7 +114,7 @@ class PlayerDatabase
         Console.WriteLine("Новый игрок добавлен!");
     }
 
-    public void DeletePlayer()
+    private void DeletePlayer()
     {
         ShowAllPlayers();
 
@@ -124,7 +129,7 @@ class PlayerDatabase
         }
     }
 
-    public void ShowAllPlayers()
+    private void ShowAllPlayers()
     {
         Console.WriteLine("\nСписок всех игроков: ");
 
@@ -134,7 +139,7 @@ class PlayerDatabase
         }
     }
 
-    public void BanPlayer()
+    private void BanPlayer()
     {
         ShowAllPlayers();
 
@@ -149,7 +154,7 @@ class PlayerDatabase
         }
     }
 
-    public void UnbanPlayer()
+    private void UnbanPlayer()
     {
         ShowAllPlayers();
 
@@ -195,14 +200,14 @@ class PlayerDatabase
 
 class Player
 {
-    private static int id = 1;
+    private static int _id = 1;
 
     public Player(string nickname, int level, bool isBanned)
     {
         Nickname = nickname;
         Level = level;
         IsBanned = isBanned;
-        Id = id++;
+        Id = _id++;
     }
 
     public string Nickname { get; private set; }
